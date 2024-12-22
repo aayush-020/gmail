@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gmail Replica</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #c4c7c5;
+      border-bottom: 1px solid black;
+    }
+
+    .header .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .header .logo img {
+      width: 40px;
+      margin-right: 10px;
+    }
+
+    .header .search-bar {
+      flex-grow: 0.75;
+      display: flex;
+      align-items: center;
+      margin: 0 20px;
+    }
+
+    .header .search-bar input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #c4c7c5;
+      border-radius: 10px;
+    }
+
+    .header .menu-buttons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .header .menu-buttons button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .sidebar {
+      width: 150px;
+      background-color: #c4c7c5;
+      border-right: 1px solid black;
+      height: calc(100vh - 20px);
+      position: fixed;
+      top: 60px;
+      left: 0;
+      padding: 10px;
+    }
+
+    .sidebar .account-info {
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+
+    .sidebar .account-info strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .sidebar .settings-section {
+      margin-top: 20px;
+      border-top: 1px solid #ddd;
+      padding-top: 10px;
+    }
+
+    .sidebar button {
+      width: 100%;
+      padding: 10px;
+      background-color: #0f6ecd;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .sidebar button:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+    }
+
+    .sidebar .menu-item {
+      padding: 10px;
+      font-size: 16px;
+      color: #333;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+
+    .sidebar .menu-item img {
+      width: 20px;
+    }
+
+    .sidebar .menu-item:hover {
+      color: #007bff;
+      background-color: #f0f8ff;
+    }
+
+    .content {
+      margin-left: 200px;
+      padding: 20px;
+    }
+
+    .email-list {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .email-item {
+      padding: 15px;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .email-item:hover {
+      background-color: #f9f9f9;
+    }
+
+    .email-item .email-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .email-item .email-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <img src="https://www.gstatic.com/images/branding/product/1x/gmail_2020q4_48dp.png" alt="Gmail Logo">
+      <span>Gmail</span>
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search mail">
+    </div>
+    <div class="menu-buttons">
+      <button>&#9776;</button>
+      <button>&#x2709;</button>
+      <button>&#128100;</button>
+    </div>
+  </div>
+  <div class="sidebar">
+    <button>Compose</button>
+    <div class="menu-item">
+      <img src="https://cdn-icons-png.flaticon.com/128/15699/15699795.png" alt="Inbox Icon">
+      Inbox
+    </div>
+    <div class="menu-item">
+      <img src="https://cdn-icons-png.flaticon.com/128/4674/4674417.png" alt="Sent Icon">
+      Sent
+    </div>
+    <div class="menu-item">
+      <img src="https://cdn-icons-png.flaticon.com/128/10156/10156051.png" alt="Draft Icon">
+      Draft
+    </div>
+    <div class="menu-item">
+      <img src="https://cdn-icons-png.flaticon.com/128/4782/4782746.png" alt="Snoozed Icon">
+      Snoozed
+    </div>
+    <div class="menu-item">
+      <img src="https://cdn-icons-png.flaticon.com/128/17809/17809304.png" alt="Bin Icon">
+      Bin
+    </div>
+    <div class="settings-section">
+      <strong>Settings</strong>
+      <ul>
+        <li>General Settings</li>
+        <li>Privacy</li>
+        <li>Account</li>
+      </ul>
+    </div>
+  </div>
+  <div class="content">
+    <div class="email-list">
+      <div class="email-item">
+        <div class="email-details">
+          <strong>Bizbazar Limited</strong>
+          <span>New profile notification</span>
+        </div>
+        <div class="email-actions">
+          <span>18 Dec</span>
+        </div>
+      </div>
+      <div class="email-item">
+        <div class="email-details">
+          <strong>Trakt</strong>
+          <span>Still searching for your next great watch?</span>
+        </div>
+        <div class="email-actions">
+          <span>14 Dec</span>
+        </div>
+      </div>
+      <div class="email-item">
+        <div class="email-details">
+          <strong>MQL5.community</strong>
+          <span>Password recovery</span>
+        </div>
+        <div class="email-actions">
+          <span>11 Dec</span>
+        </div>
+      </div>
+      <div class="email-item">
+        <div class="email-details">
+          <strong>PayPal Communication</strong>
+          <span>We're making changes to our legal agreements</span>
+        </div>
+        <div class="email-actions">
+          <span>7 Dec</span>
+        </div>
+      </div>
+      <div class="email-item">
+        <div class="email-details">
+          <strong>Spotify</strong>
+          <span>Confirm your email address to start listening</span>
+        </div>
+        <div class="email-actions">
+          <span>4 Dec</span>
+        </div>
+      </div>
+      <div class="email-item">
+        <div class="email-details">
+          <strong>Google</strong>
+          <span>Your Google account sign-in activity</span>
+        </div>
+        <div class="email-actions">
+          <span>1 Dec</span>
+        </div>
+      </div>
+      <div class="email-item">
+        <div class="email-details">
+          <strong>Medium</strong>
+          <span>New recommendations for you</span>
+        </div>
+        <div class="email-actions">
+          <span>29 Nov</span>
+        </div>
+      </div>
+      <div class="email-item">
+        <div class="email-details">
+          <strong>LinkedIn</strong>
+          <span>See who viewed your profile this week</span>
+        </div>
+        <div class="email-actions">
+          <span>24 Nov</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    Terms | Privacy | Programme Policies
+  </div>
+</body>
+</html>
+
